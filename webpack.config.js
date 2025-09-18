@@ -5,11 +5,14 @@ module.exports = (env, argv) => {
   const isProd = argv.mode === 'production';
 
   return {
+    context: __dirname,
+
     entry: './src/index.tsx',
 
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: isProd ? 'bundle.[contenthash].js' : 'bundle.js',
+      filename: isProd ? 'assets/js/[name].[contenthash:8].js' : 'assets/js/[name].js',
+      assetModuleFilename: 'assets/[hash][ext][query]',
       clean: true,
       publicPath: '/'
     },
@@ -21,33 +24,58 @@ module.exports = (env, argv) => {
 
     module: {
       rules: [
-        { test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/ },
-
-        // SCSS-модули: *.module.scss
         {
-          test: /\.module\.s[ac]ss$/,
+          test: /\.tsx?$/i,
+          use: 'ts-loader',
+          exclude: /node_modules/
+        },
+
+        // ЕДИНОЕ правило для SCSS: модули включаются только для *.module.scss
+        {
+          test: /\.s[ac]ss$/i,
           use: [
-            'style-loader',
-            { loader: 'css-loader', options: { modules: { localIdentName: isProd ? '[hash:base64:6]' : '[local]__[hash:base64:4]' } } },
+            { loader: 'style-loader', options: { esModule: true } },
+            {
+              loader: 'css-loader',
+              options: {
+                esModule: true,
+                importLoaders: 1,
+                modules: {
+                  auto: (resourcePath) => /\.module\.(s[ac]ss|css)$/i.test(resourcePath),
+                  localIdentName: isProd ? '[hash:base64:6]' : '[local]__[hash:base64:4]'
+                }
+              }
+            },
             'sass-loader'
           ]
         },
-        // Глобальные SCSS
-        { test: /\.s[ac]ss$/, exclude: /\.module\.s[ac]ss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
 
-        // Картинки
-        { test: /\.(png|jpe?g|gif|svg)$/i, type: 'asset', parser: { dataUrlCondition: { maxSize: 8 * 1024 } } }
+        // Картинки / SVG
+        {
+          test: /\.(png|jpe?g|gif|svg|webp)$/i,
+          type: 'asset',
+          parser: { dataUrlCondition: { maxSize: 8 * 1024 } }
+        },
+
+        // Шрифты
+        {
+          test: /\.(woff2?|eot|ttf|otf)$/i,
+          type: 'asset/resource'
+        }
       ]
     },
 
     plugins: [
-      new HtmlWebpackPlugin({ template: 'public/index.html' })
+      new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, 'public/index.html'),
+        scriptLoading: 'defer'
+      })
     ],
 
     devtool: isProd ? 'source-map' : 'eval-cheap-module-source-map',
 
     devServer: {
-      static: path.join(__dirname, 'public'),
+      static: { directory: path.resolve(__dirname, 'public') },
       port: 5173,
       hot: true,
       open: true,
