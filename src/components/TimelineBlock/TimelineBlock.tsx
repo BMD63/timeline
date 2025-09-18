@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './TimelineBlock.scss';
 import type { TimeRange } from '@/types/timeline';
 import Ring from './Ring';
+import Slider from './Slider';
 
 interface Props { ranges: TimeRange[] }
 
@@ -36,6 +37,8 @@ export default function TimelineBlock({ ranges }: Props) {
         <div className="tlb-leftYear">{active.startYear}</div>
         <div className="tlb-rightYear">{active.endYear}</div>
       </div>
+
+      <Slider events={active.events} />
     </section>
   );
 }

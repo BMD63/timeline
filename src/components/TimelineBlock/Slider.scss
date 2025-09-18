@@ -1,0 +1,17 @@
+.tlb-slider {
+  position: relative;
+  margin-top: 16px;
+}
+
+.tlb-card {
+  background: #fff;
+  border: 1px solid #e6e9f2;
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 110px;
+  display: grid;
+  gap: 8px;
+}
+
+.tlb-cardTitle { font-weight: 700; }
+.tlb-cardText  { color: #6b7392; font-size: 14px; }

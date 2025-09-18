@@ -24,21 +24,21 @@ module.exports = (env, argv) => {
 
     module: {
       rules: [
+        // TypeScript/React
         {
           test: /\.tsx?$/i,
           use: 'ts-loader',
           exclude: /node_modules/
         },
 
-        // ЕДИНОЕ правило для SCSS: модули включаются только для *.module.scss
+        // SCSS (CSS-modules только для *.module.scss)
         {
           test: /\.s[ac]ss$/i,
           use: [
-            { loader: 'style-loader', options: { esModule: true } },
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
-                esModule: true,
                 importLoaders: 1,
                 modules: {
                   auto: (resourcePath) => /\.module\.(s[ac]ss|css)$/i.test(resourcePath),
@@ -50,7 +50,13 @@ module.exports = (env, argv) => {
           ]
         },
 
-        // Картинки / SVG
+        // Обычные .css (для Swiper и т.п.)
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader']
+        },
+
+        // Картинки/SVG
         {
           test: /\.(png|jpe?g|gif|svg|webp)$/i,
           type: 'asset',
