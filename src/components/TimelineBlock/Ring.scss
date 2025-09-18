@@ -1,0 +1,45 @@
+.tlb-ringWrap {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin: 0 auto;
+}
+
+.tlb-circle {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid #e8ebf4;
+  pointer-events: none;
+}
+
+.tlb-ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(var(--rot, 0deg)); /* поворот всего набора точек */
+  transform-origin: 50% 50%;
+}
+
+.tlb-point {
+  --i: 0;  /* индекс точки */
+  --n: 1;  /* всего точек */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px; 
+  border-radius: 50%;
+  background: #cfd6ef;
+  border: 2px solid #fff;
+  cursor: pointer;
+
+  /* равномерное размещение по окружности радиусом ~120px */
+  transform: rotate(calc(-45deg + var(--i) * (360deg / var(--n))))
+             translateY(-120px);
+  transition: background 0.15s ease;
+}
+
+.tlb-point[aria-selected="true"] {
+  background: #5c6cf6;
+}

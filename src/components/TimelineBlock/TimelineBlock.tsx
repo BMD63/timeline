@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './TimelineBlock.scss';
 import type { TimeRange } from '@/types/timeline';
+import Ring from './Ring';
 
 interface Props { ranges: TimeRange[] }
 
@@ -10,6 +11,8 @@ export default function TimelineBlock({ ranges }: Props) {
 
   const prev = () => setActiveIndex(i => (i - 1 + ranges.length) % ranges.length);
   const next = () => setActiveIndex(i => (i + 1) % ranges.length);
+
+  const labels = ranges.map(r => r.label);
 
   return (
     <section className="tlb-root">
@@ -22,7 +25,7 @@ export default function TimelineBlock({ ranges }: Props) {
         <button className="tlb-arrowBtn" aria-label="Предыдущая категория" onClick={prev}>⟵</button>
 
         <div style={{ textAlign: 'center' }}>
-          <div className="tlb-ringStub">Кольцо (заглушка)</div>
+          <Ring labels={labels} activeIndex={activeIndex} onSelect={setActiveIndex} />
           <div className="tlb-labelBubble">{active.label}</div>
         </div>
 
