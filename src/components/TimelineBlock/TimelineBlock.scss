@@ -25,33 +25,30 @@
 }
 
 .tlb-arrowBtn {
-  width: 36px; height: 36px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1px solid #e6e9f2;
   background: #fff;
   cursor: pointer;
 }
 
-.tlb-ringStub {
-  width: 260px; height: 260px;
-  border-radius: 50%;
-  border: 1px dashed #cfd6ef;
-  display: grid; place-items: center;
-}
-
-.tlb-labelBubble {
-  margin-top: 8px;
-  display: inline-grid; place-items: center;
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  border: 1px solid #e6e9f2; background: #fff;
-  font-size: 12px;
-}
-
+/* Годы по центру, размер из макета */
 .tlb-years {
-  margin-top: 8px;
-  display: flex; gap: 16px; justify-content: center; align-items: baseline;
+  margin-top: 16px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: baseline;
 }
-.tlb-leftYear, .tlb-rightYear { font-size: 48px; font-weight: 800; line-height: 1; }
-.tlb-leftYear { color: #5c6cf6; }
+
+.tlb-leftYear,
+.tlb-rightYear {
+  font-size: 200px;     /* как просили */
+  line-height: 0.9;
+  font-weight: 800;
+  user-select: none;
+}
+
+.tlb-leftYear  { color: #5c6cf6; }
 .tlb-rightYear { color: #ff5ca8; }

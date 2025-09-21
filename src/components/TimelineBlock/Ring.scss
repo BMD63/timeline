@@ -1,7 +1,7 @@
 .tlb-ringWrap {
   position: relative;
-  width: 260px;
-  height: 260px;
+  width: 530px;    
+  height: 530px;   
   margin: 0 auto;
 }
 
@@ -9,37 +9,64 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid #e8ebf4;
+  border: 1px solid #E8EBF4;
   pointer-events: none;
 }
 
-.tlb-ring {
-  position: absolute;
-  inset: 0;
-  transform: rotate(var(--rot, 0deg)); /* поворот всего набора точек */
-  transform-origin: 50% 50%;
-}
+.tlb-ring { position: absolute; inset: 0; }
 
 .tlb-point {
-  --i: 0;  /* индекс точки */
-  --n: 1;  /* всего точек */
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 14px;
-  height: 14px;
-  margin: -7px; 
+  width: 6px;
+  height: 6px;
+  margin: -3px;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  display: block;
+  -webkit-appearance: none;
+  appearance: none;
   border-radius: 50%;
-  background: #cfd6ef;
-  border: 2px solid #fff;
+  background: #AFC2E9;
+  outline: none;
   cursor: pointer;
-
-  /* равномерное размещение по окружности радиусом ~120px */
-  transform: rotate(calc(-45deg + var(--i) * (360deg / var(--n))))
-             translateY(-120px);
-  transition: background 0.15s ease;
+  transform-origin: 50% 50%;
 }
 
-.tlb-point[aria-selected="true"] {
-  background: #5c6cf6;
+.tlb-badge { 
+  position: absolute; 
+  left: 50%; top: 50%; 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
+}
+.tlb-badgeDot { 
+  width: 56px; 
+  height: 56px; 
+  border-radius: 50%; 
+  border: 1px solid #E6E9F2; 
+  background: #fff;
+  display: grid; 
+  place-items: center; 
+  font-size: 14px; 
+  color: #6B7392; 
+  line-height: 1; 
+  font-weight: 600; 
+}
+.tlb-badgeText { 
+  font-size: 16px; 
+  color: #6B7392; 
+  white-space: nowrap; 
+}
+
+.tlb-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;   
+  text-align: center;
+  z-index: 1;
 }
