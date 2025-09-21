@@ -11,9 +11,14 @@
   border-radius: 50%;
   border: 1px solid #E8EBF4;
   pointer-events: none;
+  z-index: 0;
 }
 
-.tlb-ring { position: absolute; inset: 0; }
+.tlb-ring { 
+  position: absolute; 
+  inset: 0; 
+  z-index: 2;
+}
 
 .tlb-point {
   position: absolute;

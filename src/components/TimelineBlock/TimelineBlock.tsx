@@ -16,6 +16,8 @@ export default function TimelineBlock({ ranges }: Props) {
   const next = () => setActiveIndex((i) => (i + 1) % ranges.length);
 
   const labels = ranges.map((r) => r.label);
+  const total = ranges.length;
+  const current = activeIndex + 1;
 
   return (
     <section className="tlb-root">
@@ -24,22 +26,21 @@ export default function TimelineBlock({ ranges }: Props) {
       </div>
 
       <div className="tlb-top">
-        <button className="tlb-arrowBtn" aria-label="Предыдущая категория" onClick={prev}>
-          ⟵
-        </button>
-
-        <div style={{ textAlign: 'center' }}>
-          <Ring labels={labels} activeIndex={activeIndex} onSelect={setActiveIndex}>
-            <div className="tlb-years">
-              <div className="tlb-leftYear">{active.startYear}</div>
-              <div className="tlb-rightYear">{active.endYear}</div>
-            </div>
-          </Ring>
+        <Ring labels={labels} activeIndex={activeIndex} onSelect={setActiveIndex}>
+          <div className="tlb-years">
+            <div className="tlb-leftYear">{active.startYear}</div>
+            <div className="tlb-rightYear">{active.endYear}</div>
+          </div>
+        </Ring>
+      </div>
+      <div className="tlb-toolbar">
+        <span className="tlb-counter">
+          {String(current).padStart(2, '0')}/{String(total).padStart(2, '0')}
+        </span>
+        <div className="tlb-arrows">
+          <button className="tlb-arrowBtn" aria-label="Предыдущая категория" onClick={prev}>⟵</button>
+          <button className="tlb-arrowBtn" aria-label="Следующая категория" onClick={next}>⟶</button>
         </div>
-
-        <button className="tlb-arrowBtn" aria-label="Следующая категория" onClick={next}>
-          ⟶
-        </button>
       </div>
       <Slider events={active.events} />
     </section>

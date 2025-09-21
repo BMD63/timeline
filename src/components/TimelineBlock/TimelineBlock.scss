@@ -18,10 +18,10 @@
 
 .tlb-top {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  display: flex;
+  justify-content: center ;
+  align-items: center  ;
+  margin-bottom: 1  2px;
 }
 
 .tlb-arrowBtn {
@@ -32,8 +32,23 @@
   background: #fff;
   cursor: pointer;
 }
+.tlb-arrows {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.tlb-toolbar {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+.tlb-counter {
+  font-size: 14px;
+  color: #6b7392;
+}
 
-/* Годы по центру, размер из макета */
 .tlb-years {
   margin-top: 16px;
   display: flex;
