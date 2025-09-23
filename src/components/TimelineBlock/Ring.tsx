@@ -36,7 +36,7 @@ export default function Ring({ labels, activeIndex, onSelect, children }: Props)
         })}
       </div>
       <div
-        className="tlb-badge"
+        className="tlb-badgeAnchor"
         aria-hidden
         style={{
           transform: `rotate(${angleFor(activeIndex)}deg) translateY(-${circleRadius}px) rotate(-${angleFor(

@@ -40,12 +40,15 @@
   transform-origin: 50% 50%;
 }
 
-.tlb-badge { 
-  position: absolute; 
-  left: 50%; top: 50%; 
-  display: inline-flex; 
-  align-items: center; 
-  gap: 8px; 
+.tlb-badgeAnchor {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  margin: -28px;                
+  z-index: 3;
+  pointer-events: none;         
 }
 .tlb-badgeDot { 
   width: 56px; 
@@ -61,9 +64,14 @@
   font-weight: 600; 
 }
 .tlb-badgeText { 
+  position: absolute;
+  left: calc(56px + 8px);        
+  transform: translateY(-50%);
+  top: 50%;
   font-size: 16px; 
   color: #6B7392; 
   white-space: nowrap; 
+  pointer-events: none;
 }
 
 .tlb-center {
