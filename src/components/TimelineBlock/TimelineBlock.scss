@@ -59,11 +59,17 @@
 
 .tlb-leftYear,
 .tlb-rightYear {
-  font-size: 200px;     /* как просили */
   line-height: 0.9;
   font-weight: 800;
   user-select: none;
 }
+.tlb-sliderWrap {
+  opacity: 1;
+  transition: opacity .25s ease;
+}
 
+.tlb-sliderWrap[aria-busy="true"] {
+  opacity: 0;
+}
 .tlb-leftYear  { color: #5c6cf6; }
 .tlb-rightYear { color: #ff5ca8; }

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './TimelineBlock.scss';
 import type { TimeRange } from '@/types/timeline';
 import Ring from './Ring';
 import Slider from './Slider';
+import Years from './Years'; 
 
 interface Props {
   ranges: TimeRange[];
@@ -27,10 +28,7 @@ export default function TimelineBlock({ ranges }: Props) {
 
       <div className="tlb-top">
         <Ring labels={labels} activeIndex={activeIndex} onSelect={setActiveIndex}>
-          <div className="tlb-years">
-            <div className="tlb-leftYear">{active.startYear}</div>
-            <div className="tlb-rightYear">{active.endYear}</div>
-          </div>
+          <Years start={active.startYear} end={active.endYear} />
         </Ring>
       </div>
       <div className="tlb-toolbar">
