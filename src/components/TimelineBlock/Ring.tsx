@@ -11,23 +11,22 @@ interface Props {
 export default function Ring({ labels, activeIndex, onSelect, children }: Props) {
   const n = labels.length;
   const CLOCK = [30, 90, 150, 210, 270, 330] as const;
-  const positions = CLOCK.slice(0, n);
+  const baseAngles = CLOCK.slice(0, n); 
   const circleRadius = 264.5;
-  const angleFor = (i: number) => positions[(i - activeIndex + n) % n];
+  const ringRotation = 30 - baseAngles[activeIndex];
 
   return (
     <div className="tlb-ringWrap">
       <div className="tlb-circle" />
-      <div className="tlb-ring">
+      <div className="tlb-ring" style={{ transform: `rotate(${ringRotation}deg)` }}>
         {labels.map((label, i) => {
-          if (i === activeIndex) return null;
-          const angle = angleFor(i);
+          const angle = baseAngles[i];
           return (
             <button
               key={label}
               className="tlb-point"
               style={{ transform: `rotate(${angle}deg) translateY(-${circleRadius}px)` }}
-              aria-selected={false}
+              aria-selected={i === activeIndex}
               aria-label={`Категория: ${label}`}
               onClick={() => onSelect(i)}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelect(i); }}
@@ -38,11 +37,7 @@ export default function Ring({ labels, activeIndex, onSelect, children }: Props)
       <div
         className="tlb-badgeAnchor"
         aria-hidden
-        style={{
-          transform: `rotate(${angleFor(activeIndex)}deg) translateY(-${circleRadius}px) rotate(-${angleFor(
-            activeIndex
-          )}deg)`
-        }}
+        style={{ transform: `rotate(30deg) translateY(-${circleRadius}px) rotate(-30deg)` }}
       >
         <div className="tlb-badgeDot">{activeIndex + 1}</div>
         <div className="tlb-badgeText">{labels[activeIndex]}</div>
