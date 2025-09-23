@@ -13,12 +13,28 @@ export default function TimelineBlock({ ranges }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = ranges[activeIndex];
 
-  const prev = () => setActiveIndex((i) => (i - 1 + ranges.length) % ranges.length);
-  const next = () => setActiveIndex((i) => (i + 1) % ranges.length);
+
 
   const labels = ranges.map((r) => r.label);
   const total = ranges.length;
   const current = activeIndex + 1;
+
+  const [isSwitching, setIsSwitching] = useState(false);
+
+  const setActiveSafely = (i: number) => {
+    if (i === activeIndex) return;
+    setIsSwitching(true);
+    setTimeout(() => {
+      setActiveIndex(i);
+      setIsSwitching(false);
+    }, 250);
+  };
+  const prev = () =>
+      setActiveSafely((activeIndex - 1 + ranges.length) % ranges.length);
+
+    const next = () =>
+      setActiveSafely((activeIndex + 1) % ranges.length);
+
 
   return (
     <section className="tlb-root">
@@ -40,7 +56,10 @@ export default function TimelineBlock({ ranges }: Props) {
           <button className="tlb-arrowBtn" aria-label="Следующая категория" onClick={next}>⟶</button>
         </div>
       </div>
-      <Slider events={active.events} />
+      <div className="tlb-sliderWrap" aria-busy={isSwitching ? 'true' : 'false'} key={active.id}>
+        <Slider events={active.events} />
+      </div>
+        
     </section>
   );
 }
