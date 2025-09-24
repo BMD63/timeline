@@ -17,21 +17,43 @@
 .tlb-subtitle { font-size: 16px; color: #6b7392; }
 
 .tlb-top {
-  display: grid;
   display: flex;
   justify-content: center ;
   align-items: center  ;
-  margin-bottom: 1  2px;
+  margin-bottom: 12px;
 }
 
 .tlb-arrowBtn {
-  width: 36px;
-  height: 36px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 1px solid #e6e9f2;
   background: #fff;
   cursor: pointer;
+  place-items: center;
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease, opacity .15s ease, filter .15s ease;
 }
+
+.tlb-arrowBtn:hover { border-color: #DADFF0; }
+.tlb-arrowBtn:focus-visible {
+ outline: none;
+ box-shadow: 0 0 0 3px rgba(83,99,246,.2);
+}
+.tlb-arrowBtn:active { background: #F6F7FB; }
+.tlb-arrowBtn[disabled] { 
+  opacity: .5; 
+  cursor: default; 
+}
+
+.tlb-arrowIcon {
+  width: 6.25px;
+  height: 12.5px;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  object-fit: contain;
+}
+
 .tlb-arrows {
   display: flex;
   align-items: center;
@@ -42,11 +64,14 @@
   flex-direction: column; 
   align-items: flex-start;
   gap: 8px;
-  margin: 12px 0 0;
+  margin: 16px 0 0;
 }
 .tlb-counter {
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   color: #6b7392;
+  user-select: none;
 }
 
 .tlb-years {
@@ -74,3 +99,27 @@
 }
 .tlb-leftYear  { color: #5c6cf6; }
 .tlb-rightYear { color: #ff5ca8; }
+
+.tlb-clickLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+.tlb-clickRing {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  margin-left: -23px;
+  margin-top: -23px;
+  border-radius: 50%;
+  border: 2px solid #1C2340;
+  box-shadow: 0 2px 6px rgba(0,0,0,.12);
+  background: transparent;
+  animation: tlb-click-pop .25s ease-out forwards;
+}
+@keyframes tlb-click-pop {
+  0%   { opacity: 0; transform: scale(.85); }
+  40%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.06); }
+}

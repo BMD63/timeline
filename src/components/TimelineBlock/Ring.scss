@@ -35,16 +35,69 @@
   -webkit-appearance: none;
   appearance: none;
   border-radius: 50%;
-  background: #AFC2E9;
+  background: var(--dotColor, #AFC2E9);
   outline: none;
   cursor: pointer;
   transform-origin: 50% 50%;
-  transition: transform 1s ease;
+  transition: transform 1s ease, opacity .2s ease, background-color .2s ease;
 }
 .tlb-point[aria-selected="true"] {
   opacity: 0;
   pointer-events: none;
-  transition: transform 1s ease, opacity .2s ease;
+}
+.tlb-point::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  margin: -28px;                
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: var(--dotColor, #AFC2E9);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  transform: rotate(calc(-1 * var(--angTotal, 0deg))) scale(0.1);
+  opacity: 0;
+  transition:
+    transform .50s ease,
+    opacity  .40s ease,
+    background-color .70s ease,
+    border-color     .70s ease .10s;
+  pointer-events: none;
+  z-index: 1;
+}
+.tlb-point::before {
+  content: attr(data-index);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(calc(-1 * var(--angTotal, 0deg)));
+  font-size: 14px;
+  font-weight: 600;
+  color: #6B7392;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.tlb-point:hover,
+.tlb-point:focus-visible {
+  background: transparent;      
+}
+
+.tlb-point:hover::after,
+.tlb-point:focus-visible::after {
+  opacity: 1;
+  transform: rotate(calc(-1 * var(--angTotal, 0deg))) scale(1);
+  background: #fff;
+  border-color: #E6E9F2;
+}
+
+.tlb-point:hover::before,
+.tlb-point:focus-visible::before {
+  opacity: 1;
 }
 
 .tlb-badgeAnchor {

@@ -21,11 +21,16 @@ export default function Ring({ labels, activeIndex, onSelect, children }: Props)
       <div className="tlb-ring" style={{ transform: `rotate(${ringRotation}deg)` }}>
         {labels.map((label, i) => {
           const angle = baseAngles[i];
+          const total = angle + ringRotation;
           return (
             <button
               key={label}
               className="tlb-point"
-              style={{ transform: `rotate(${angle}deg) translateY(-${circleRadius}px)` }}
+              data-index={i + 1}
+              style={{
+                transform: `rotate(${angle}deg) translateY(-${circleRadius}px)`,
+                ['--angTotal' as any]: `${total}deg`,
+              }}
               aria-selected={i === activeIndex}
               aria-label={`Категория: ${label}`}
               onClick={() => onSelect(i)}
