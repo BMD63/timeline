@@ -51,8 +51,18 @@ export default function TimelineBlock({ ranges }: Props) {
 
   return (
     <section className="tlb-root" ref={rootRef} onMouseDown={handleMouseDown}>
+      <div 
+        className="tlb-lines" 
+        aria-hidden
+        style={{ ['--frame-shift' as any]: '310px' }} 
+      >
+        <span className="line v left" />
+        <span className="line v center" />
+        <span className="line h" />
+      </div>
       <div className="tlb-header">
-        <div className="tlb-title">Исторические даты</div>
+        <span className="tlb-accent" aria-hidden />
+        <h2 className="tlb-title">Исторические даты</h2>
       </div>
 
       <div className="tlb-top">
