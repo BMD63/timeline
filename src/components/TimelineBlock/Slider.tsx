@@ -34,16 +34,16 @@ export default function Slider({ events, scale = 1 }: Props) {
     >
       <div className="tlb-sliderNav" aria-hidden>
         <button
-          className={`tlb-navBtn ${prevCls} ${isBeginning ? 'is-disabled' : ''}`}
+          className={`tlb-navBtn tlb-navBtn--prev ${prevCls} ${isBeginning ? 'is-disabled' : ''}`}
           aria-label="Предыдущая карточка"
         >
-          <img className="tlb-arrowIcon" src="/prev_arr.png" alt="" aria-hidden="true" />
+          <img className="tlb-arrowIcon" src="/slider_arrow.svg" alt="" aria-hidden="true" />
         </button>
         <button
-          className={`tlb-navBtn ${nextCls} ${isEnd ? 'is-disabled' : ''}`}
+          className={`tlb-navBtn tlb-navBtn--next ${nextCls} ${isEnd ? 'is-disabled' : ''}`}
           aria-label="Следующая карточка"
         >
-          <img className="tlb-arrowIcon" src="/next_arr.png" alt="" aria-hidden="true" />
+          <img className="tlb-arrowIcon" src="/slider_arrow.svg" alt="" aria-hidden="true" />
         </button>
       </div>
 
