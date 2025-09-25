@@ -1,4 +1,3 @@
-import React from 'react';
 import './Slider.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y } from 'swiper/modules';
@@ -8,28 +7,41 @@ import type { TimelineEvent } from '@/types/timeline';
 
 interface Props {
   events: TimelineEvent[];
+  scale?: number;
 }
 
-export default function Slider({ events }: Props) {
+export default function Slider({ events, scale = 1 }: Props) {
+  const sideW = Math.round(320 * scale);
+  const centerW = Math.round(400 * scale);
+  const gap = Math.round(32 * scale);
   return (
-    <div className="tlb-slider">
+    <div 
+      className="tlb-slider"
+      style={
+      {
+        ['--sideW' as any]: `${sideW}px`,
+        ['--centerW' as any]: `${centerW}px`,
+      } as React.CSSProperties
+    }
+    >
       <Swiper
-        modules={[Navigation, A11y]}
-        navigation
-        spaceBetween={16}
-        slidesPerView={3}
-        a11y={{ enabled: true }}
-        breakpoints={{
-          0: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 }
-        }}
+        className="tlb-swiper"
+        slidesPerView="auto"
+        centeredSlides
+        spaceBetween={gap}
+        initialSlide={1}
+        grabCursor
+        preventClicksPropagation
+        speed={500}
       >
         {events.map((ev) => (
-          <SwiperSlide key={ev.id}>
+          <SwiperSlide 
+            key={ev.id}
+            className="tlb-slide"
+          >
             <article className="tlb-card">
-              <div className="tlb-cardTitle">{ev.title}</div>
-              <div className="tlb-cardText">{ev.description}</div>
+              <h3 className="tlb-cardTitle">{ev.title}</h3>
+              {ev.description && <p className="tlb-cardText">{ev.description}</p>}
             </article>
           </SwiperSlide>
         ))}

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './TimelineBlock.scss';
 import type { TimeRange } from '@/types/timeline';
 import Ring from './Ring';
@@ -11,13 +11,15 @@ interface Props {
 
 export default function TimelineBlock({ ranges }: Props) {
   const rootRef = useRef<HTMLElement | null>(null);
+  const [sliderScale, setSliderScale] = useState(1);
   const [ring, setRing] = useState<{ x: number; y: number; id: number } | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const active = ranges[activeIndex];
 
 
 
-  const labels = ranges.map((r) => r.label);
+  const labels = ranges.map((r) => (r.events.length ? r.label : ''));
+  const enabled = ranges.map((r) => r.events.length > 0);
   const total = ranges.length;
   const current = activeIndex + 1;
 
@@ -48,6 +50,20 @@ export default function TimelineBlock({ ranges }: Props) {
     const y = e.clientY - rect.top;
     setRing({ x, y, id: Date.now() }); 
   };
+    useEffect(() => {
+      const el = rootRef.current;
+      if (!el) return;
+      const ro = new ResizeObserver(([entry]) => {
+        const width = entry.contentRect.width;
+        const needed = 1104;
+        const available = Math.max(0, width - 48);
+        const s = Math.min(1, available / needed);
+        setSliderScale(s);
+        el.style.setProperty('--slider-scale', String(s));
+      });
+      ro.observe(el);
+      return () => ro.disconnect();
+    }, []);
 
   return (
     <section className="tlb-root" ref={rootRef} onMouseDown={handleMouseDown}>
@@ -66,7 +82,12 @@ export default function TimelineBlock({ ranges }: Props) {
       </div>
 
       <div className="tlb-top">
-        <Ring labels={labels} activeIndex={activeIndex} onSelect={setActiveSafely}>
+      <Ring
+         labels={labels}
+         enabled={enabled}
+         activeIndex={activeIndex}
+         onSelect={setActiveIndex}
+       >
           <Years start={active.startYear} end={active.endYear} />
         </Ring>
       </div>
@@ -84,7 +105,8 @@ export default function TimelineBlock({ ranges }: Props) {
         </div>
       </div>
       <div className="tlb-sliderWrap" aria-busy={isSwitching ? 'true' : 'false'} key={active.id}>
-        <Slider events={active.events} />
+        <Slider events={active.events} scale={sliderScale}
+      />
       </div>
       {ring && (
         <div className="tlb-clickLayer" aria-hidden>

@@ -3,12 +3,13 @@ import './Ring.scss';
 
 interface Props {
   labels: string[];
+  enabled: boolean[];
   activeIndex: number;
   onSelect: (i: number) => void;
   children?: React.ReactNode;         
 }
 
-export default function Ring({ labels, activeIndex, onSelect, children }: Props) {
+export default function Ring({ labels, enabled, activeIndex, onSelect, children }: Props) {
   const n = labels.length;
   const CLOCK = [30, 90, 150, 210, 270, 330] as const;
   const baseAngles = CLOCK.slice(0, n); 
@@ -21,6 +22,7 @@ export default function Ring({ labels, activeIndex, onSelect, children }: Props)
       <div className="tlb-ring" style={{ transform: `rotate(${ringRotation}deg)` }}>
         {labels.map((label, i) => {
           const angle = baseAngles[i];
+          const isDisabled = !enabled[i];
           const total = angle + ringRotation;
           return (
             <button
@@ -32,9 +34,14 @@ export default function Ring({ labels, activeIndex, onSelect, children }: Props)
                 ['--angTotal' as any]: `${total}deg`,
               }}
               aria-selected={i === activeIndex}
+              aria-disabled={isDisabled ? 'true' : undefined}
               aria-label={`Категория: ${label}`}
-              onClick={() => onSelect(i)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelect(i); }}
+              onClick={() => {
+               if (!isDisabled) onSelect(i);
+              }}
+              onKeyDown={(e) => {
+               if (!isDisabled && (e.key === 'Enter' || e.key === ' ')) onSelect(i);
+              }}
             />
           );
         })}

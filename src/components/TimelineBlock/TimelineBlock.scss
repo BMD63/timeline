@@ -130,6 +130,7 @@
   align-items: flex-start;
   gap: 8px;
   margin: 16px 0 0;
+  margin-left: calc(50% - var(--frame-w) / 2 + var(--frame-shift));
 }
 .tlb-counter {
   font-size: 12px;
@@ -164,6 +165,14 @@
 }
 .tlb-leftYear  { color: #5c6cf6; }
 .tlb-rightYear { color: #ff5ca8; }
+
+.tlb-slider {
+  margin-top: 24px;
+  padding-left: calc(50% - var(--frame-w) / 2 + var(--frame-shift));
+}
+.tlb-swiper {
+  padding: 4px 2px 8px 0;
+}
 
 .tlb-clickLayer {
   position: absolute;

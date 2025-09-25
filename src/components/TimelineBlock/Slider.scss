@@ -1,17 +1,49 @@
 .tlb-slider {
-  position: relative;
-  margin-top: 16px;
+  margin-top: 24px;
+}
+
+.tlb-swiper {
+  padding: 4px 2px 8px 0;
+}
+
+.tlb-slide {
+  width: var(--sideW, 320px) !important;
+  box-sizing: border-box;
+  flex-shrink: 0; 
+}
+
+.tlb-swiper .swiper-slide-active {
+  width: var(--centerW, 400px) !important;
+}
+
+.tlb-swiper .swiper-slide-prev,
+.tlb-swiper .swiper-slide-next {
+  width: var(--sideW, 320px) !important;
 }
 
 .tlb-card {
+  border: 0;
   background: #fff;
-  border: 1px solid #e6e9f2;
-  border-radius: 12px;
-  padding: 16px;
-  min-height: 110px;
-  display: grid;
-  gap: 8px;
+  padding: 20px 24px;
+  min-height: 156px;
+  transition: box-shadow .2s ease, transform .2s ease;
 }
 
-.tlb-cardTitle { font-weight: 700; }
-.tlb-cardText  { color: #6b7392; font-size: 14px; }
+.tlb-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  transform: translateY(-1px);
+}
+
+.tlb-cardTitle { 
+  font-weight: 700; 
+  font-size: 16px;
+  color: #3D5AFE;
+  margin: 0 0 12px;
+}
+
+.tlb-cardText  { 
+  color: #6b7392; 
+  font-size: 14px; 
+  margin: 0;
+  line-height: 1.5;
+}

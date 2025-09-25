@@ -1,14 +1,85 @@
-import type { TimeRange } from '@/types/timeline';
+import type { TimeRange, TimelineEvent } from '@/types/timeline';
 
-const ev = (id: string, title: string): any => ({
-  id, title, description: 'Короткое описание события.'
+const ev = (year: number, description: string): TimelineEvent => ({
+  id: String(year),
+  title: String(year),
+  description,
 });
 
+const EMPTY_EVENTS: TimelineEvent[] = [];
+
+const CINEMA_EVENTS: TimelineEvent[] = [
+  ev(2008, '«Тёмный рыцарь» — один из самых кассовых и влиятельных фильмов десятилетия.'),
+  ev(2009, 'Премьера «Аватара» Джеймса Кэмерона — технологический прорыв 3D-кино.'),
+  ev(2010, '«Начало» Кристофера Нолана — хит с оригинальной концепцией «снов внутри снов».'),
+  ev(2011, 'Немой «Артист» берёт «Оскар» за лучший фильм, возвращая моду на ретро-стилистику.'),
+  ev(2012, '«Мстители» объединяют героев MCU и задают стандарт супергеройским кроссоверам.'),
+  ev(2013, '«Гравитация» Альфонсо Куарона — эталон иммерсивного космического триллера.'),
+];
+
+const LIT_EVENTS: TimelineEvent[] = [
+  ev(1992, 'Нобелевская премия — Дерек Уолкотт «за блестящий образ карибского эпоса».'),
+  ev(1993, 'Нобелевская премия — Тони Моррисон «за силу зрения и поэтичность прозы».'),
+  ev(1994, 'Нобелевская премия — Кэндзабуро Оэ, гуманист японской литературы XX века.'),
+  ev(1995, 'Нобелевская премия — Шеймус Хини, «поэт редкой лирической красоты».'),
+  ev(1996, 'Нобелевская премия — Вислава Шимборска, ироничная философская лирика.'),
+];
+
+const SCI_EVENTS: TimelineEvent[] = [
+  ev(2015, 'LIGO впервые регистрирует гравитационные волны (объявлено в 2016).'),
+  ev(2016, 'Хаббл фиксирует рекордно далёкую галактику GN-z11 (красное смещение z≈11).'),
+  ev(2017, 'Cassini завершает миссию в «кольцах Сатурна», дав уйму данных о планете.'),
+  ev(2018, 'Запуск зонда Parker Solar Probe к Солнцу — приближение на рекордную дистанцию.'),
+  ev(2019, 'Получено первое изображение тени чёрной дыры (M87*) — проект Event Horizon.'),
+  ev(2020, 'Запуск марсохода Perseverance и дрона Ingenuity к Марсу.'),
+];
+
 export const SAMPLE_RANGES: TimeRange[] = [
-  { id: 'science',    label: 'Наука',       startYear: 2015, endYear: 2022, events: [ev('s1','2015'), ev('s2','2017')] },
-  { id: 'cinema',     label: 'Кино',        startYear: 2010, endYear: 2020, events: [ev('c1','2012'), ev('c2','2016')] },
-  { id: 'literature', label: 'Литература',  startYear: 2005, endYear: 2015, events: [ev('l1','2007'), ev('l2','2011')] },
-  { id: 'sport',      label: 'Спорт',       startYear: 2012, endYear: 2024, events: [ev('sp1','2014'), ev('sp2','2018')] },
-  { id: 'tech',       label: 'Технологии',  startYear: 2016, endYear: 2023, events: [ev('t1','2017'), ev('t2','2020')] },
-  { id: 'music',      label: 'Музыка',      startYear: 2000, endYear: 2010, events: [ev('m1','2002'), ev('m2','2008')] }
+  {
+    id: 'cat-1',
+    label: 'Музыка',
+    startYear: 2000,
+    endYear: 2020,
+    events: EMPTY_EVENTS,
+  },
+  // 2 — Кино
+  {
+    id: 'cat-2',
+    label: 'Кино',
+    startYear: 2008,
+    endYear: 2013,
+    events: CINEMA_EVENTS,
+  },
+  // 3 — Литература
+  {
+    id: 'cat-3',
+    label: 'Литература',
+    startYear: 1992,
+    endYear: 1996,
+    events: LIT_EVENTS,
+  },
+  // 4
+  {
+    id: 'cat-4',
+    label: 'Спорт',
+    startYear: 2000,
+    endYear: 2020,
+    events: EMPTY_EVENTS,
+  },
+  // 5
+  {
+    id: 'cat-5',
+    label: 'Технологии',
+    startYear: 2000,
+    endYear: 2020,
+    events: EMPTY_EVENTS,
+  },
+  // 6 — Наука
+  {
+    id: 'cat-6',
+    label: 'Наука',
+    startYear: 2015,
+    endYear: 2020,
+    events: SCI_EVENTS,
+  },
 ];
